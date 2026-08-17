@@ -35,9 +35,10 @@ def getUser():
 #this both field is requrie
 class Emp(BaseModel):
     name:str
-    id:int
-# @app.post('/')
-# def createEmp(Emp:Emp):
-#     employee.append(Emp)
-#     return employee
+    id:int 
+    address:str |None=None   #make it optional
+@app.post('/')
+def createEmp(Emp:Emp):
+    employee.append(Emp)
+    return employee
 
