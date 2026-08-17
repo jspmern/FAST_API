@@ -67,3 +67,27 @@ async def edit_employee(emp:EmployeeEdit):
         return {"success":True,"message":"Employee updated successfully"}
     except Exception as e:
         return {"success":False ,"message":str(e)}
+
+
+#read query String    
+@app.get('/search')
+async def get_employee_by_query(skip:int=0, limit:int=10, name:str=None):
+    print(skip, limit, name)
+    try:
+        print(skip, limit, name)
+        return {"success": True, "message":f"{skip} {limit} {name}"}
+    except Exception as e:
+        return {"success": False, "message": str(e)}
+
+#read params 
+@app.get('/{name}')
+async def get_employee_by_name(name:str):
+    try:
+        data=read_json()
+        for item in data:
+            if item["name"] == name:
+                return {"success":True,"data":item}
+        return {"success":False,"message":"Employee not found"}
+    except Exception as e:
+        return {"success":False,"message":str(e)}    
+

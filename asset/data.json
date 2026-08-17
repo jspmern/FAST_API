@@ -13,8 +13,7 @@
         "salary": 10000000.0,
         "position": "sde1"
     },
-    [],
-    [
+    
         {
             "name": "utsav2",
             "age": 30,
@@ -29,5 +28,5 @@
             "salary": 10000000.0,
             "position": "sde1"
         }
-    ]
+    
 ]
