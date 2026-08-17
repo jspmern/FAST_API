@@ -2,7 +2,7 @@ import string
 
 from fastapi import FastAPI
 from utilis import read_json, write_json
-from pydantic import BaseModel
+from main2 import BaseModel
 from fastapi import Query
 #initialize the FastAPI app
 app = FastAPI()
