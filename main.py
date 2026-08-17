@@ -3,6 +3,7 @@ import string
 from fastapi import FastAPI
 from utilis import read_json, write_json
 from pydantic import BaseModel
+from fastapi import Query
 #initialize the FastAPI app
 app = FastAPI()
 
@@ -91,7 +92,7 @@ async def get_employee_by_query(skip:int=0, limit:int=10, name:str=None):
         return {"success": False, "message": str(e)}
 
 #read path parameter 
-@app.get('/{name}')
+@app.get('/home/{name}')
 async def get_employee_by_name(name:str):
     try:
         data=read_json()
@@ -103,8 +104,18 @@ async def get_employee_by_name(name:str):
         return {"success":False,"message":str(e)}    
 
 
+#optional query parameter    
+@app.get('/users')
+def get_user(skip:int=0,limit:int | None=None ):
+    return {"message":f'{limit} and {skip}'}  
+
 #multiple path parameter
 @app.get('/user/{userId}/posts/{postId}')
 async def getUserPostInfo(userId:int,postId:int):
-    return {"message":f'{userId} and {postId}'}        
+    return {"message":f'{userId} and {postId}'}  
+
+#query parameter validation
+@app.get('/query-validation')
+def get_user(limit:int=Query(10,ge=1,le=100)) :
+    return {"limit":limit}
 
