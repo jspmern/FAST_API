@@ -69,7 +69,18 @@ async def edit_employee(emp:EmployeeEdit):
         return {"success":False ,"message":str(e)}
 
 
-#read query String    
+#read query String  
+
+# # required query parameter for department  
+# @app.get("/employees")
+# def get_employees(department: str):
+
+#optional query parameter for department
+# @app.get("/employees")
+# def get_employees(
+#     department: str | None = None
+# ):    
+
 @app.get('/search')
 async def get_employee_by_query(skip:int=0, limit:int=10, name:str=None):
     print(skip, limit, name)
@@ -79,7 +90,7 @@ async def get_employee_by_query(skip:int=0, limit:int=10, name:str=None):
     except Exception as e:
         return {"success": False, "message": str(e)}
 
-#read params 
+#read path parameter 
 @app.get('/{name}')
 async def get_employee_by_name(name:str):
     try:
