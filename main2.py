@@ -1,6 +1,6 @@
 #this is for learning all about pydantic validatior
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 app=FastAPI()
 #dummy employee for learn pydantic
 employee=[
@@ -35,7 +35,10 @@ def getUser():
 #this both field is requrie
 class Emp(BaseModel):
     name:str
-    id:int 
+    # id:int=1 #if not provide it take as a defult value  :👉 i want id always be a postive no
+    id:int=Field(
+        ge=0
+    )
     address:str |None=None   #make it optional
 @app.post('/')
 def createEmp(Emp:Emp):
