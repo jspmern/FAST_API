@@ -31,7 +31,7 @@ class Employee (BaseModel):
     salary:float
     position:str
 
-# create a new employee 
+# create a new employee
 @app.post('/')
 async def create_emp(emp:Employee):
     try:
@@ -42,3 +42,28 @@ async def create_emp(emp:Employee):
         return {"success": True, "message": "Employee created successfully", "data": data}
     except Exception as e:
         return {"success": False, "message": str(e)}
+#this is the pydantic class for edit the employee
+class EmployeeEdit(BaseModel):
+    newName:str
+    name:str
+
+#update the employee
+@app.put('/')
+async def edit_employee(emp:EmployeeEdit):
+    try:
+        data=read_json()
+        for item in data:
+            if item["name"] == emp.name:
+                item["name"] = emp.newName
+                updated = True
+                break
+
+        if not updated:
+            return {
+                "success": False,
+                "message": "Employee not found"
+            }  
+        write_json(data)
+        return {"success":True,"message":"Employee updated successfully"}
+    except Exception as e:
+        return {"success":False ,"message":str(e)}
