@@ -102,3 +102,9 @@ async def get_employee_by_name(name:str):
     except Exception as e:
         return {"success":False,"message":str(e)}    
 
+
+#multiple path parameter
+@app.get('/user/{userId}/posts/{postId}')
+async def getUserPostInfo(userId:int,postId:int):
+    return {"message":f'{userId} and {postId}'}        
+
