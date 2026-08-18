@@ -43,3 +43,25 @@ def checkHealth():
 # @app.get('/user')
 # def deleteInfo(user=Depends(requrie_admin)):
 #     return {"message":"Deleted"}
+
+#c.multiple dependencies are also possible
+
+# def get_CurrentUser():
+#      userInfo={
+#             "username":"utsav",
+#             "role":"admin"
+#         }
+#      return userInfo
+
+# def requrie_admin():
+#     userInfo={
+#                "username":"utsav",
+#                "role":"admin"
+#            }
+#     if userInfo['role'] != "admin":
+#         raise HTTPException(status_code=403,detail="Admin access require")
+#     return userInfo
+# @app.get('/user')
+# def deleteInfo(user=Depends(get_CurrentUser),permission=Depends(requrie_admin)):
+#     print(user)
+#     return {"message":"Deleted"}
