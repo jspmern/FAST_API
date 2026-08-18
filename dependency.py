@@ -1,4 +1,4 @@
-from fastapi import FastAPI,Depends,Header,HTTPException
+from fastapi import FastAPI,Depends,Header,HTTPException,Query
 #app initialization
 app=FastAPI()
 @app.get('/')
@@ -65,3 +65,35 @@ def checkHealth():
 # def deleteInfo(user=Depends(get_CurrentUser),permission=Depends(requrie_admin)):
 #     print(user)
 #     return {"message":"Deleted"}
+
+
+##################################  Real time Dependencies  Example #####################################
+
+def getUserInfo():
+    return {
+        "name":"utsav",
+        "role":"user",
+          "id":1
+    }
+
+#authorization
+def require_admin(user=Depends(getUserInfo)):
+    if user["role"] !="admin":
+        raise HTTPException(status_code=403,detail="Admin Access Required")
+    return user
+
+#pagination
+def pagination(limit:int=Query(ge=0,le=100),skip:int=1):
+    return {"limit":limit,"skip":skip}
+
+#endpoint 
+@app.get('/user')
+def getUserInfo(user=Depends(require_admin),
+                pagination=Depends(pagination)):
+    return {
+        "message":"admin user endpoint",
+         "required_by":user["name"],
+         "skip":pagination["skip"],
+         "limit":pagination["limit"]
+    }
+
